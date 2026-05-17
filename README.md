@@ -13,10 +13,26 @@ TODO:
   - [ ] - background
 - [ ] - kitty
 - [ ] - neovim
+- [ ] - wlgreet/greetd
 
 | program | file      | tested on |
 | ------- | ----      | --------- |
 | zsh     | .zshrc    | guix      |
 | zsh     | .zprofile | ^         |
 | sway    | config    | guix      |
+
+
+# Intended packages
+
+These dotfiles assume you're using:
+
+- zsh
+- neovim
+- kitty
+- sway
+- waybar
+- wofi
+- mako
+- grim/slurp
+- wlgreet/greetd
 
