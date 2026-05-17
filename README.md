@@ -5,13 +5,18 @@ My dotfiles, intended for use with gnu stow, and with guix!
 TODO:
 
 - [~] - zsh (minimal)
-- [ ] - sway
-- [ ] - sway related desktop stuff
-- [ ] - neovim
+- [~] - sway (minimal)
+  - [ ] - waybar
+  - [ ] - wofi
+  - [ ] - mako
+  - [ ] - grim/slurp
+  - [ ] - background
 - [ ] - kitty
+- [ ] - neovim
 
-| program | file      | works on |
-| ------- | ----      | -------- |
-| zsh     | .zshrc    | guix     |
-| zsh     | .zprofile | ^        |
+| program | file      | tested on |
+| ------- | ----      | --------- |
+| zsh     | .zshrc    | guix      |
+| zsh     | .zprofile | ^         |
+| sway    | config    | guix      |
 
