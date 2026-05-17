@@ -4,10 +4,15 @@ My dotfiles, intended for use with gnu stow, and with guix!
 
 TODO:
 
-- [~] - zsh (minimal)
-- [~] - sway (minimal)
+| symbol | meaning |
+| [ ] | not done |
+| [~] | working, but unstyled |
+| [+] | done |
+
+- [~] - zsh
+- [~] - sway
   - [~] - waybar
-  - [ ] - wofi
+  - [~] - wofi
   - [ ] - mako
   - [ ] - grim/slurp
   - [ ] - background

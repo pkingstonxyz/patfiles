@@ -11,7 +11,7 @@ set $up k
 set $right l
 
 set $term kitty # Set temrinal emulator
-set $menu wofi  # Set application launcher
+set $menu wofi --show run,drun # Set application launcher
 
 
 ########################
