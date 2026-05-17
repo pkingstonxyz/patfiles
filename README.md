@@ -4,7 +4,8 @@ My dotfiles, intended for use with gnu stow, and with guix!
 
 TODO:
 
-| symbol | meaning |
+| sym | meaning |
+| --- | ------- |
 | [ ] | not done |
 | [~] | working, but unstyled |
 | [+] | done |
@@ -14,13 +15,13 @@ TODO:
   - [~] - waybar
   - [~] - wofi
   - [~] - mako
-  - [ ] - grim/slurp
+  - [+] - grim/slurp
   - [ ] - background
     - [ ] - Waybar clock
     - [ ] - dynamic paintings
-- [ ] - kitty
-- [ ] - neovim
-- [ ] - wlgreet/greetd
+- [~] - kitty
+- [~] - neovim
+- [~] - wlgreet/greetd
 
 | program | file           | tested on |
 | ------- | ----           | --------- |

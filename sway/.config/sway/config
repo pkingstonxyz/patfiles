@@ -156,7 +156,7 @@ output * bg @datadir@/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
     bindsym $mod+v splitv
 
     # Switch the current container between different layout styles
-    bindsym $mod+s layout stacking
+    bindsym $mod+t layout stacking
     bindsym $mod+w layout tabbed
     bindsym $mod+e layout toggle split
 
@@ -230,14 +230,20 @@ bindsym $mod+r mode "resize"
 
 #
 # Notifications
+# TODO: Configure mako
 #
 exec mako
    
 #
-# TODO: make better screenshot mappings
+# Screenshots
 #
-# Special key to take a screenshot with grim
+# Legacy old printscrn (dont have one on the main keyb)
 bindsym Print exec grim
+# Partial screen
+bindsym $mod+Shift+s exec sh -c 'grim -g "$(slurp)" $HOME/$(date +"screenshot_%F-%T.png")'
+# Whole screen
+bindsym $mod+s exec sh -c 'grim $HOME/$(date +"screenshot_%F-%T.png")'
+bindsym $mod+Shift+x exec sh -c 'echo $HOME | wofi --show dmenu'
 
 #
 # Status Bar:
