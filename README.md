@@ -13,7 +13,7 @@ TODO:
 - [~] - sway
   - [~] - waybar
   - [~] - wofi
-  - [ ] - mako
+  - [~] - mako
   - [ ] - grim/slurp
   - [ ] - background
     - [ ] - Waybar clock
