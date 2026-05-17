@@ -6,20 +6,23 @@ TODO:
 
 - [~] - zsh (minimal)
 - [~] - sway (minimal)
-  - [ ] - waybar
+  - [~] - waybar
   - [ ] - wofi
   - [ ] - mako
   - [ ] - grim/slurp
   - [ ] - background
+    - [ ] - Waybar clock
+    - [ ] - dynamic paintings
 - [ ] - kitty
 - [ ] - neovim
 - [ ] - wlgreet/greetd
 
-| program | file      | tested on |
-| ------- | ----      | --------- |
-| zsh     | .zshrc    | guix      |
-| zsh     | .zprofile | ^         |
-| sway    | config    | guix      |
+| program | file           | tested on |
+| ------- | ----           | --------- |
+| zsh     | .zshrc         | guix      |
+| zsh     | .zprofile      | ^         |
+| sway    | config         | guix      |
+| waybar  | config.jsonc   | guix      |
 
 
 # Intended packages
