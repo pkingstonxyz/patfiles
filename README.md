@@ -17,8 +17,7 @@ TODO:
   - [~] - mako
   - [+] - grim/slurp
   - [ ] - background
-    - [ ] - Waybar clock
-    - [ ] - dynamic paintings
+  - [~] - Waybar clock  # TODO: make it look fancier
 - [~] - kitty
 - [~] - neovim
 - [~] - wlgreet/greetd
@@ -29,6 +28,9 @@ TODO:
 | zsh     | .zprofile      | ^         |
 | sway    | config         | guix      |
 | waybar  | config.jsonc   | guix      |
+| waybar  | styles.css     | guix      |
+| waybar  | scripts/analog_clock.sh   | guix |
+| fonts   | SimpleAnalogClockFont.ttf | guix |
 
 
 # Intended packages

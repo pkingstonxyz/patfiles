@@ -1,12 +1,17 @@
 {
 	"layer": "top",
 	"modules-left": ["sway/workspaces", "sway/mode", "sway/window"],
-	"modules-center": ["clock"],
+	"modules-center": ["custom/analog_clock"],
 	"modules-right": ["battery"],
 	"sway/window": {
 		"max-length": 50
 	},
 	"battery": {
 		"format": "{capacity}%"
+	},
+	"custom/analog_clock": {
+		"exec": "dash $XDG_CONFIG_HOME/waybar/scripts/analog_clock.sh",
+		"interval": 1,
+		"return-type": "json"
 	}
 }

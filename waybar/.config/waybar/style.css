@@ -1,0 +1,10 @@
+* {
+	background-color: #110a33;
+	color: #ffffff;
+}
+#custom-analog_clock {
+	font-family: "SimpleAnalogClockFont-Bold";
+	font-size: 28px;
+	padding: 0 8px;
+	color: #ffffff;
+}
