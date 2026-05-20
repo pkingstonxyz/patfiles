@@ -1,10 +1,36 @@
 * {
-	background-color: #110a33;
+	font-family: "FiraCode Nerd Font", "FiraCode";
+}
+window#waybar {
+	background-color: rgba(0, 0, 0, 0);
 	color: #ffffff;
 }
+
 #custom-analog_clock {
-	font-family: "SimpleAnalogClockFont-Bold";
-	font-size: 28px;
-	padding: 0 8px;
-	color: #ffffff;
+	font-family: "SimpleAnalogClockFont";
+	font-weight: bold;
+	font-size: 24px;
+	padding: 0px 5px 0px 5px;
+	margin: 5px;
+	border-radius: 100%;
+	background-color: rgb(225, 193, 110); /* brass #E1C16E*/
+	color: #232120; /* supposed to be like a dusty black */
+}
+
+.modules-right, .modules-left {
+	margin: 0px 10px 0px 10px;
+}
+
+#window, #workspaces, #mode, #battery, #wireplumber, #network, #tray {
+	border-radius: 3px;
+	margin: 5px 5px;
+	background-color: rgb(225, 193, 110); /* brass #E1C16E*/
+	color: #232120; /* supposed to be like a dusty black */
+	padding: 0px 5px 0px 5px;
+}
+window#waybar.empty #window {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
 }

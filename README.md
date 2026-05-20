@@ -12,7 +12,7 @@ TODO:
 
 - [~] - zsh
 - [~] - sway
-  - [~] - waybar
+  - [+] - waybar
   - [~] - wofi
   - [~] - mako
   - [+] - grim/slurp
@@ -30,7 +30,6 @@ TODO:
 | waybar  | config.jsonc   | guix      |
 | waybar  | styles.css     | guix      |
 | waybar  | scripts/analog_clock.sh   | guix |
-| fonts   | SimpleAnalogClockFont.ttf | guix |
 
 
 # Intended packages

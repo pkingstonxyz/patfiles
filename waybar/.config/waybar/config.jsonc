@@ -2,7 +2,10 @@
 	"layer": "top",
 	"modules-left": ["sway/workspaces", "sway/mode", "sway/window"],
 	"modules-center": ["custom/analog_clock"],
-	"modules-right": ["battery"],
+	"modules-right": ["wireplumber", "network", "battery", "tray"],
+	"sway/window": {
+		"display": false
+	},
 	"sway/window": {
 		"max-length": 50
 	},
@@ -13,5 +16,23 @@
 		"exec": "dash $XDG_CONFIG_HOME/waybar/scripts/analog_clock.sh",
 		"interval": 1,
 		"return-type": "json"
+	},
+	"wireplumber": {
+		"format": "{icon} {volume}%",
+		"format-muted": "󰝟 Muted",
+		"format-icons": ["󰕿", "󰖀", "󰕾"],
+		"on-click": "pavucontrol", // Opens audio mixer control
+		"on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle", // Toggle mute on right click
+	},
+
+	"network": {
+		"format-wifi": " ({signalStrength}%)",
+		"format-ethernet": "󰈀 ",
+		"format-disconnected": "⚠",
+		"on-click": "nm-connection-editor" 
+	},
+	"tray": {
+		"icon-size": 21,
+		"spacing": 10
 	}
 }
