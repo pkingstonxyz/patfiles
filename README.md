@@ -22,14 +22,15 @@ TODO:
 - [~] - neovim
 - [~] - wlgreet/greetd
 
-| program | file           | tested on |
-| ------- | ----           | --------- |
-| zsh     | .zshrc         | guix      |
-| zsh     | .zprofile      | ^         |
-| sway    | config         | guix      |
-| waybar  | config.jsonc   | guix      |
-| waybar  | styles.css     | guix      |
-| waybar  | scripts/analog_clock.sh   | guix |
+| program   | file           | tested on |
+| -------   | ----           | --------- |
+| zsh       | .zshrc         | guix      |
+| zsh       | .zprofile      | ^         |
+| sway      | config         | guix      |
+| waybar    | config.jsonc   | guix      |
+| waybar    | styles.css     | guix      |
+| waybar    | scripts/analog_clock.sh   | guix |
+| fastfetch | config.jsonc   | only guix |
 
 
 # Intended packages
