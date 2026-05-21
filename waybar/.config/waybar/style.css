@@ -1,3 +1,6 @@
+@define-color tn-brass #ffc776;
+@define-color tn-dark #222435;
+
 * {
 	font-family: "FiraCode Nerd Font", "FiraCode";
 }
@@ -13,8 +16,8 @@ window#waybar {
 	padding: 0px 5px 0px 5px;
 	margin: 5px;
 	border-radius: 100%;
-	background-color: rgb(225, 193, 110); /* brass #E1C16E*/
-	color: #232120; /* supposed to be like a dusty black */
+	background-color: @tn-brass;
+	color: @tn-dark;
 }
 
 .modules-right, .modules-left {
@@ -24,9 +27,9 @@ window#waybar {
 #window, #workspaces, #mode, #battery, #wireplumber, #network, #tray {
 	border-radius: 3px;
 	margin: 5px 5px;
-	background-color: rgb(225, 193, 110); /* brass #E1C16E*/
-	color: #232120; /* supposed to be like a dusty black */
-	padding: 0px 5px 0px 5px;
+	background-color: @tn-brass;
+	color: @tn-dark;
+	padding: 0.5px 5.5px 0px 5px;
 }
 window#waybar.empty #window {
     background-color: transparent;

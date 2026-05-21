@@ -13,6 +13,24 @@ set $right l
 set $term kitty # Set temrinal emulator
 set $menu wofi --show run,drun # Set application launcher
 
+###########
+# Styling #
+###########
+
+gaps inner 12
+gaps outer 0
+smart_gaps on
+
+default_border pixel 3
+for_window [class=".*"] border pixel 3
+
+# based on the tokyo-moon colors
+# class                 border      backgr.     text        indicator   child_border
+client.focused          #ff966c     #222436     #c8d3f5     #ffc777     #ff966c
+client.unfocused        #2f334d     #1b1d2b     #545c7e     #1b1d2b     #2f334d
+client.focused_inactive #444a73     #222436     #828bb8     #444a73     #444a73
+client.urgent           #ff757f     #222436     #ff8d94     #ff757f     #ff757f
+client.background       #222436
 
 ########################
 # Output configuration #
