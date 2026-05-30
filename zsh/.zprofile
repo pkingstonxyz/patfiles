@@ -9,4 +9,8 @@ fi
 if [ -f "$HOME/.config/guix/current/etc/profile" ]; then
 	. "$HOME/.config/guix/current/etc/profile"
 fi
+if [ -d /etc/guix ]; then
+	export GBM_BACKEND=nvidia-drm
+	export __GLX_VENDOR_LIBRARY_NAME=nvidia
+fi
 
