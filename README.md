@@ -17,10 +17,11 @@ TODO:
   - [~] - mako
   - [+] - grim/slurp
   - [ ] - background
-  - [~] - Waybar clock  # TODO: make it look fancier
-- [~] - kitty
-- [~] - neovim
+  - [+] - Waybar clock  # TODO: make it look fancier
+- [+] - kitty
+- [+] - neovim
 - [~] - wlgreet/greetd
+- [~] - emacs
 
 | program   | file           | tested on |
 | -------   | ----           | --------- |
@@ -31,6 +32,7 @@ TODO:
 | waybar    | styles.css     | guix      |
 | waybar    | scripts/analog_clock.sh   | guix |
 | fastfetch | config.jsonc   | only guix |
+| emacs     | init.el        | guix, fedora |
 
 
 # Intended packages
@@ -46,4 +48,5 @@ These dotfiles assume you're using:
 - mako
 - grim/slurp
 - wlgreet/greetd
+- emacs
 
