@@ -94,6 +94,7 @@ output * bg @datadir@/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #
     # Start a terminal
     bindsym $mod+Return exec $term
+    bindsym $mod+m exec emacsclient -r -a 'nvim'
 
     # Kill focused window
     bindsym $mod+Shift+q kill
