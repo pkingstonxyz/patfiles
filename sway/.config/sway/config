@@ -24,13 +24,13 @@ smart_gaps on
 default_border pixel 3
 for_window [class=".*"] border pixel 3
 
-# based on the tokyo-moon colors
-# class                 border      backgr.     text        indicator   child_border
-client.focused          #ff966c     #222436     #c8d3f5     #ffc777     #ff966c
-client.unfocused        #2f334d     #1b1d2b     #545c7e     #1b1d2b     #2f334d
-client.focused_inactive #444a73     #222436     #828bb8     #444a73     #444a73
-client.urgent           #ff757f     #222436     #ff8d94     #ff757f     #ff757f
-client.background       #222436
+# Gruvbox colors
+# class                  border      backgr.     text        indicator   child_border
+client.focused           #d65d0e     #282828     #ebdbb2     #d79921     #d65d0e
+client.unfocused         #3c3836     #282828     #928374     #282828     #3c3836
+client.focused_inactive  #504945     #282828     #a89984     #504945     #504945
+client.urgent            #cc241d     #282828     #fb4934     #cc241d     #cc241d
+client.background        #282828
 
 ########################
 # Output configuration #
@@ -94,7 +94,7 @@ output * bg @datadir@/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #
     # Start a terminal
     bindsym $mod+Return exec $term
-    bindsym $mod+m exec emacsclient -r -a 'nvim'
+    bindsym $mod+m exec emacsclient -c -a 'nvim'
 
     # Kill focused window
     bindsym $mod+Shift+q kill
