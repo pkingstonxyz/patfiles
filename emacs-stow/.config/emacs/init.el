@@ -120,6 +120,9 @@
   ;; per mode with `ligature-mode'.
   (global-ligature-mode t))
 
+(add-to-list 'default-frame-alist
+       '(font . "Fira Code-13"))
+
 (use-package gruvbox-theme
              :ensure t
              :config
@@ -129,9 +132,51 @@
              :ensure t)
 (use-package magit
              :ensure t)
+(use-package treesit-auto
+  :ensure t
+  :config
+  (setq treesit-auto-langs (delete 'elisp treesit-auto-langs))  ; Defend elisp
+  (global-treesit-auto-mode))
 
-(add-to-list 'default-frame-alist
-       '(font . "Fira Code-13"))
+;; Rename Python tree sitter to Python-TS so that it's showing
+(add-hook 'python-ts-mode-hook
+          (lambda ()
+            (setq mode-name "Python-TS")))
+
+(use-package eglot
+  :ensure nil ;; Built-in, no download needed
+  :hook ((python-ts-mode) . eglot-ensure))
+
+(use-package envrc
+  :ensure t
+  :hook (after-init . envrc-global-mode))
+
+(use-package diff-hl
+  :ensure t
+  :init
+  (global-diff-hl-mode)
+  :config
+  (global-diff-hl-amend-mode)
+  (diff-hl-flydiff-mode 1))
+
+(use-package dape
+  :ensure t
+  :config
+  (add-to-list 'dape-configs
+    '(ansible-module
+      modes (python-mode python-ts-mode)
+      command "python"
+      command-args ("-m" "debugpy.adapter")
+      command-cwd "/tmp"
+      :type "python"
+      :request "attach"
+      :listen (:host "127.0.0.1" :port 5678)
+      :pathMappings []
+      :justMyCode t))
+  (setq dape--debug-on '(io info error std-server)))
+
+(use-package eat
+  :ensure t)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -143,7 +188,9 @@
      "5a0ddbd75929d24f5ef34944d78789c6c3421aa943c15218bac791c199fc897d"
      default))
  '(menu-bar-mode nil)
- '(package-selected-packages '(gruvbox-theme ligature magit meow transient-cycles))
+ '(package-selected-packages
+   '(dape diff-hl eat envrc gnu-elpa-keyring-update gruvbox-theme
+	  ligature magit meow transient-cycles treesit-auto))
  '(package-vc-selected-packages
    '((ligature :url "https://github.com/mickeynp/ligature.el")))
  '(scroll-bar-mode nil)
@@ -160,3 +207,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  
+

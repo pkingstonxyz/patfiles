@@ -6,3 +6,6 @@ if [ -d /etc/guix ]; then
   export CC=gcc
   alias ls='ls --ignore *-guix-home-legacy-configs-backup --color=auto'
 fi
+
+# Ansible test shell debug mode
+alias atsd='PYTHONPATH="$PWD/lib:$PWD/test/lib:$PWD" python -m debugpy --connect 5678 "$(which ansible-test)" shell --dev-debug-on-demand'
