@@ -1,6 +1,7 @@
 (setq initial-scratch-message (concat "\
 ;; Welcome to emacs. Right now it's: " (current-time-string)))
-
+(setq inhibit-startup-screen t)
+(setq initial-buffer-choice "~/.config/emacs/mylife.org")
 (global-display-line-numbers-mode)
 
 (require 'package)
@@ -191,13 +192,13 @@
    '("836b0bc16dbd2aed387e552edabd4d67d227961efa3af412da387eb3e010d76b"
      "5a0ddbd75929d24f5ef34944d78789c6c3421aa943c15218bac791c199fc897d"
      default))
- '(indent-tabs-mode nil)
  '(menu-bar-mode nil)
- '(package-selected-packages nil)
+ '(package-selected-packages
+   '(dape diff-hl eat envrc gnu-elpa-keyring-update gruvbox-theme
+	  ligature magit meow transient-cycles treesit-auto))
  '(package-vc-selected-packages
    '((ligature :url "https://github.com/mickeynp/ligature.el")))
  '(scroll-bar-mode nil)
- '(tab-width 4)
  '(tool-bar-mode nil))
 
 (custom-set-faces

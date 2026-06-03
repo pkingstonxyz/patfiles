@@ -33,7 +33,7 @@ TODO:
 | waybar    | scripts/analog_clock.sh   | guix |
 | fastfetch | config.jsonc   | only guix |
 | emacs     | init.el        | guix, fedora |
-| emacs-stow* | init.el        | guix, fedora |
+
 
 
 # Intended packages
@@ -51,6 +51,3 @@ These dotfiles assume you're using:
 - wlgreet/greetd
 - emacs
 
-# Notes
-
-The emacs-stow thing is, I admit, pretty hacky. I'm shocked there's no way home-emacs-service-type on guix where I can just hand it a file the way zsh is, but whatever.  The way it is *now* is that guix manages emacs and puts the early-init.el in.  Then, it runs a stow service to properly stow the *real* emacs file
