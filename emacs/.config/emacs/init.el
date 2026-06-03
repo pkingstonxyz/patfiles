@@ -94,7 +94,9 @@
       '("'" . repeat)
       '("<escape>" . ignore)))
   (meow-setup)
-  (meow-global-mode 1))
+  (meow-global-mode 1)
+  ;; Force eat-mode to always start in insert (passthrough) mode
+  (add-to-list 'meow-mode-state-list '(eat-mode . insert)))
 
 (use-package meow-tree-sitter
   :ensure t
@@ -128,6 +130,23 @@
 
 (add-to-list 'default-frame-alist
        '(font . "Fira Code-13"))
+(with-eval-after-load 'org
+  (custom-set-faces
+   '(org-level-1 ((t (:inherit outline-1 :height 1.4 :weight bold))))
+   '(org-level-2 ((t (:inherit outline-2 :height 1.25 :weight bold))))
+   '(org-level-3 ((t (:inherit outline-3 :height 1.15 :weight semi-bold))))
+   '(org-level-4 ((t (:inherit outline-4 :height 1.05 :weight semi-bold)))))
+  (setq org-hide-leading-stars t)
+  (setq org-superstar-headline-bullets-list '("•"))
+  ;; Hide emphasis markers like /italic/ or *bold* (renders just the styled text)
+  (setq org-hide-emphasis-markers t)
+  ;; Use pretty replacements for things like lambda, arrows, etc.
+  (setq org-pretty-entities t)
+  ;; Require subscripts to be in {}
+  (setq org-use-sub-superscripts '{})
+  (setq org-display-inline-images t)
+  ;; Automatically wrap long lines
+  (add-hook 'org-mode-hook 'visual-line-mode))
 
 (use-package gruvbox-theme
              :ensure t
@@ -188,6 +207,22 @@
 (use-package eat
   :ensure t)
 
+(use-package vertico
+  :ensure t
+  :init
+  (vertico-mode))
+
+(use-package orderless
+  :ensure t
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
+
+(use-package consult
+  :ensure t
+  :bind (("C-s" . consult-line) ; Search current buffer
+         ("M-g g" . consult-ripgrep))) ; Live grep across the project (Requires ripgrep installed on your system!)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -199,20 +234,24 @@
      default))
  '(menu-bar-mode nil)
  '(package-selected-packages
-   '(dape diff-hl eat envrc gnu-elpa-keyring-update gruvbox-theme
-	  ligature magit meow meow-tree-sitter transient-cycles
-	  treesit-auto))
+   '(consult dape diff-hl eat envrc gnu-elpa-keyring-update gruvbox-theme
+	     ligature magit meow meow-tree-sitter orderless
+	     transient-cycles treesit-auto vertico))
  '(package-vc-selected-packages
    '((ligature :url "https://github.com/mickeynp/ligature.el")))
  '(scroll-bar-mode nil)
- '(tool-bar-mode nil))
+ '(tool-bar-mode nil)
+ '(vc-follow-symlinks nil))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(org-level-1 ((t (:inherit outline-1 :height 1.4 :weight bold))))
+ '(org-level-2 ((t (:inherit outline-2 :height 1.25 :weight bold))))
+ '(org-level-3 ((t (:inherit outline-3 :height 1.15 :weight semi-bold))))
+ '(org-level-4 ((t (:inherit outline-4 :height 1.05 :weight semi-bold)))))
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
