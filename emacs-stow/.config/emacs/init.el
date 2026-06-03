@@ -162,18 +162,22 @@
 (use-package dape
   :ensure t
   :config
+  (setq dape-request-timeout 120)
   (add-to-list 'dape-configs
     '(ansible-module
       modes (python-mode python-ts-mode)
-      command "python"
-      command-args ("-m" "debugpy.adapter")
-      command-cwd "/tmp"
-      :type "python"
+      command "~/Projects/ansible/bin/debug-adapter.sh"
+      command-args ()
       :request "attach"
+      :type "python"
       :listen (:host "127.0.0.1" :port 5678)
-      :pathMappings []
-      :justMyCode t))
-  (setq dape--debug-on '(io info error std-server)))
+      :justMyCode nil
+      :showReturnValue t))
+  (defun my/dape-ansible ()
+    "Start ansible module debug listener"
+    (interactive)
+    (dape (alist-get 'ansible-module dape-configs)))
+  (global-set-key (kbd "C-c d a") #'my/dape-ansible))
 
 (use-package eat
   :ensure t)
@@ -187,13 +191,15 @@
    '("836b0bc16dbd2aed387e552edabd4d67d227961efa3af412da387eb3e010d76b"
      "5a0ddbd75929d24f5ef34944d78789c6c3421aa943c15218bac791c199fc897d"
      default))
+ '(indent-tabs-mode nil)
  '(menu-bar-mode nil)
  '(package-selected-packages
    '(dape diff-hl eat envrc gnu-elpa-keyring-update gruvbox-theme
-	  ligature magit meow transient-cycles treesit-auto))
+          ligature magit meow transient-cycles treesit-auto))
  '(package-vc-selected-packages
    '((ligature :url "https://github.com/mickeynp/ligature.el")))
  '(scroll-bar-mode nil)
+ '(tab-width 4)
  '(tool-bar-mode nil))
 
 (custom-set-faces
