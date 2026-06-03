@@ -96,6 +96,11 @@
   (meow-setup)
   (meow-global-mode 1))
 
+(use-package meow-tree-sitter
+  :ensure t
+  :config
+  (meow-tree-sitter-register-defaults))
+
 (use-package ligature
   :vc (:url "https://github.com/mickeynp/ligature.el" :rev "6ac1634612dbd42f7eb81ecaf022bd239aabb954")
   :config   ;; Enable the "www" ligature in every possible major mode
@@ -195,7 +200,8 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    '(dape diff-hl eat envrc gnu-elpa-keyring-update gruvbox-theme
-	  ligature magit meow transient-cycles treesit-auto))
+	  ligature magit meow meow-tree-sitter transient-cycles
+	  treesit-auto))
  '(package-vc-selected-packages
    '((ligature :url "https://github.com/mickeynp/ligature.el")))
  '(scroll-bar-mode nil)
