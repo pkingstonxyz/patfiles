@@ -9,3 +9,6 @@ fi
 
 # Ansible test shell debug mode
 alias atsd='PYTHONPATH="$PWD/lib:$PWD/test/lib:$PWD" python -m debugpy --connect 5678 "$(which ansible-test)" shell --dev-debug-on-demand'
+
+# Make emacs client easier
+alias ec=emacsclient

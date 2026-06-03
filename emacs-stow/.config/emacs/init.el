@@ -193,9 +193,7 @@
      default))
  '(indent-tabs-mode nil)
  '(menu-bar-mode nil)
- '(package-selected-packages
-   '(dape diff-hl eat envrc gnu-elpa-keyring-update gruvbox-theme
-          ligature magit meow transient-cycles treesit-auto))
+ '(package-selected-packages nil)
  '(package-vc-selected-packages
    '((ligature :url "https://github.com/mickeynp/ligature.el")))
  '(scroll-bar-mode nil)
