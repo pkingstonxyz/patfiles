@@ -197,7 +197,15 @@
       :type "python"
       :listen (:host "127.0.0.1" :port 5678)
       :justMyCode nil
-      :showReturnValue t))
+      :showReturnValue t)
+    `(debugpy
+      modes (python-mode python-ts-mode)
+      command "python3"
+      command-args ("-m" "debugpy.adapter")
+      :type "executable"
+      :request "launch"
+      :cwd dape-cwd-fn
+      :program dape-find-file-buffer-default))
   (defun my/dape-ansible ()
     "Start ansible module debug listener"
     (interactive)
