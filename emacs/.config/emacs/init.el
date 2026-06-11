@@ -4,6 +4,7 @@
 (setq initial-buffer-choice "~/.config/emacs/mylife.org")
 (global-display-line-numbers-mode)
 
+(setq-default tab-width 4)
 (require 'package)
 (add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
@@ -211,6 +212,18 @@
     (interactive)
     (dape (alist-get 'ansible-module dape-configs)))
   (global-set-key (kbd "C-c d a") #'my/dape-ansible))
+
+(defun my-c-tab-settings ()
+  "Force literal tabs with a width of 4."
+  (setq indent-tabs-mode t)
+  (setq tab-width 4)
+  (setq c-basic-offset 4)
+  (setq c-ts-mode-indent-offset 4)) ; Covers Tree-Sitter C/C++ modes
+;; Apply to classic C/C++ modes
+(add-hook 'c-mode-common-hook #'my-c-tab-settings)
+;; Apply to modern Tree-Sitter C/C++ modes
+(add-hook 'c-ts-mode-hook #'my-c-tab-settings)
+(add-hook 'c++-ts-mode-hook #'my-c-tab-settings)
 
 (use-package eat
   :ensure t)

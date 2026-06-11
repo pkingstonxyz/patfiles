@@ -13,12 +13,6 @@ set $right l
 set $term kitty # Set temrinal emulator
 set $menu wofi --show run,drun # Set application launcher
 
-#########
-# Sleep #
-#########
-bindswitch lid:on exec sudo /run/current-system/profile/bin/sh -c "echo mem > /sys/power/state"
-bindswitch lid:off exec swaymsg "output * dpms on"
-
 ###########
 # Styling #
 ###########
@@ -44,7 +38,7 @@ client.background        #282828
 
 # TODO: fix wallpapers
 # Default wallpaper (more resolutions are available in @datadir@/backgrounds/sway/)
-output * bg @datadir@/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+#output * bg @datadir@/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
 #
 # Example configuration:

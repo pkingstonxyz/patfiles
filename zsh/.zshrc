@@ -12,3 +12,8 @@ alias atsd='PYTHONPATH="$PWD/lib:$PWD/test/lib:$PWD" python -m debugpy --connect
 
 # Make emacs client easier
 alias ec=emacsclient
+
+if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
+  exec sway --unsupported-gpu
+fi
+
