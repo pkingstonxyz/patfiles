@@ -243,7 +243,10 @@
   :ensure t
   :bind (("C-s" . consult-line) ; Search current buffer
          ("M-g g" . consult-ripgrep))) ; Live grep across the project (Requires ripgrep installed on your system!)
-
+(use-package paredit
+  :ensure t)
+(use-package cider
+  :ensure t)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -251,13 +254,13 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    '("836b0bc16dbd2aed387e552edabd4d67d227961efa3af412da387eb3e010d76b"
-     "5a0ddbd75929d24f5ef34944d78789c6c3421aa943c15218bac791c199fc897d"
-     default))
+	 "5a0ddbd75929d24f5ef34944d78789c6c3421aa943c15218bac791c199fc897d"
+	 default))
  '(menu-bar-mode nil)
  '(package-selected-packages
-   '(consult dape diff-hl eat envrc gnu-elpa-keyring-update gruvbox-theme
-	     ligature magit meow meow-tree-sitter orderless
-	     transient-cycles treesit-auto vertico))
+   '(cider consult dape diff-hl eat envrc gruvbox-theme ligature magit
+		   meow-tree-sitter orderless paredit parinfer
+		   transient-cycles treesit-auto vertico))
  '(package-vc-selected-packages
    '((ligature :url "https://github.com/mickeynp/ligature.el")))
  '(scroll-bar-mode nil)
