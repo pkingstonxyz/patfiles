@@ -1,0 +1,3 @@
+[submodule "emacs-private"]
+	path = emacs-private
+	url = git@github.com:pkingstonxyz/orgfiles.git
