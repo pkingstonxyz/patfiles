@@ -1,14 +1,36 @@
-(setq initial-scratch-message (concat "\
-;; Welcome to emacs. Right now it's: " (current-time-string)))
-(setq inhibit-startup-screen t)
-(setq initial-buffer-choice "~/.config/emacs/main.org")
-(global-display-line-numbers-mode)
-
-(setq-default tab-width 4)
+;;;;;;;;;;;;;;;;;;;;;
+;; Package management
+;;;;;;;;;;;;;;;;;;;;;
 (require 'package)
 (add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(package-initialize)
 
+;;;;;;;;;;;;;;;;;;;;;
+;; Core UI and themes
+;;;;;;;;;;;;;;;;;;;;;
+(setq inhibit-startup-screen t)
+(setq initial-scratch-message (concat "\
+;; Welcome to emacs. Right now it's: " (current-time-string)))
+(setq initial-buffer-choice "~/.config/emacs/main.org")
+
+;; Fonts
+(add-to-list 'default-frame-alist
+       '(font . "Fira Code-13"))
+
+;; Theme
+(use-package gruvbox-theme
+             :ensure t
+             :config
+             (load-theme 'gruvbox-dark-medium t))
+
+;;;;;;;;;;;;;;;;;;
+;; Editor behavior
+;;;;;;;;;;;;;;;;;;
+(global-display-line-numbers-mode)
+(setq-default tab-width 4)
+
+;; Meow (modal editing)
 (use-package meow
   :ensure t
   :config
@@ -98,46 +120,37 @@
   (meow-global-mode 1)
   ;; Force eat-mode to always start in insert (passthrough) mode
   (add-to-list 'meow-mode-state-list '(eat-mode . insert)))
-
 (use-package meow-tree-sitter
   :ensure t
   :config
   (meow-tree-sitter-register-defaults))
 
-(use-package ligature
-  :vc (:url "https://github.com/mickeynp/ligature.el" :rev "6ac1634612dbd42f7eb81ecaf022bd239aabb954")
-  :config   ;; Enable the "www" ligature in every possible major mode
-  (ligature-set-ligatures 't '("www"))
-  ;; Enable traditional ligature support in eww-mode, if the
-  ;; `variable-pitch' face supports it
-  (ligature-set-ligatures 'eww-mode '("ff" "fi" "ffi"))
-  ;; Enable all Cascadia Code ligatures in programming modes
-  (ligature-set-ligatures 'prog-mode '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
-                                       ":::" "::=" "=:=" "===" "==>" "=!=" "=>>" "=<<" "=/=" "!=="
-                                       "!!." ">=>" ">>=" ">>>" ">>-" ">->" "->>" "-->" "---" "-<<"
-                                       "<~~" "<~>" "<*>" "<||" "<|>" "<$>" "<==" "<=>" "<=<" "<->"
-                                       "<--" "<-<" "<<=" "<<-" "<<<" "<+>" "</>" "###" "#_(" "..<"
-                                       "..." "+++" "/==" "///" "_|_" "www" "&&" "^=" "~~" "~@" "~="
-                                       "~>" "~-" "**" "*>" "*/" "||" "|}" "|]" "|=" "|>" "|-" "{|"
-                                       "[|" "]#" "::" ":=" ":>" ":<" "$>" "==" "=>" "!=" "!!" ">:"
-                                       ">=" ">>" ">-" "-~" "-|" "->" "--" "-<" "<~" "<*" "<|" "<:"
-                                       "<$" "<=" "<>" "<-" "<<" "<+" "</" "#{" "#[" "#:" "#=" "#!"
-                                       "##" "#(" "#?" "#_" "%%" ".=" ".-" ".." ".?" "+>" "++" "?:"
-                                       "?=" "?." "??" ";;" "/*" "/=" "/>" "//" "__" "~~" "(*" "*)"
-                                       "\\\\" "://"))
-  ;; Enables ligature checks globally in all buffers. You can also do it
-  ;; per mode with `ligature-mode'.
-  (global-ligature-mode t))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Minibuffer and completions
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package vertico
+  :ensure t
+  :init
+  (vertico-mode))
 
-(add-to-list 'default-frame-alist
-       '(font . "Fira Code-13"))
+(use-package orderless
+  :ensure t
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
 
+(use-package consult
+  :ensure t
+  :bind (("C-s" . consult-line) ; Search current buffer
+         ("M-g g" . consult-ripgrep))) ; Live grep across the project (Requires ripgrep installed on your system!)
+
+;;;;;;;;;;;
+;; Org mode
+;;;;;;;;;;;
 (with-eval-after-load 'org
-  (custom-set-faces
-   '(org-level-1 ((t (:inherit outline-1 :height 1.4 :weight bold))))
-   '(org-level-2 ((t (:inherit outline-2 :height 1.25 :weight bold))))
-   '(org-level-3 ((t (:inherit outline-3 :height 1.15 :weight semi-bold))))
-   '(org-level-4 ((t (:inherit outline-4 :height 1.05 :weight semi-bold)))))
+  ;; Use the exact Gruvbox purple
+  (setq org-todo-keyword-faces
+		'(("IN-PROGRESS" . (:foreground "#d3869b" :weight bold))))
   (setq org-hide-leading-stars t)
   (setq org-superstar-headline-bullets-list '("•"))
   ;; Hide emphasis markers like /italic/ or *bold* (renders just the styled text)
@@ -148,36 +161,24 @@
   (setq org-use-sub-superscripts '{})
   (setq org-display-inline-images t)
   ;; Automatically wrap long lines
-  (add-hook 'org-mode-hook 'visual-line-mode))
+  (add-hook 'org-mode-hook 'visual-line-mode)
+  ;;Look at the top levels in the file when org teleporting
+  (setq org-refile-targets
+		'((nil :maxlevel . 1))))
+(add-hook 'org-mode-hook (lambda () (font-lock-flush))) ; fix metadata color/theme race
 
-(use-package gruvbox-theme
-             :ensure t
-             :config
-             (load-theme 'gruvbox-dark-medium t))
-
-(use-package transient-cycles
-             :ensure t)
-(use-package magit
-             :ensure t)
-(use-package treesit-auto
-  :ensure t
-  :config
-  (setq treesit-auto-langs (delete 'elisp treesit-auto-langs))  ; Defend elisp
-  (global-treesit-auto-mode))
-
-;; Rename Python tree sitter to Python-TS so that it's showing
-(add-hook 'python-ts-mode-hook
-          (lambda ()
-            (setq mode-name "Python-TS")))
-
-(use-package eglot
-  :ensure nil ;; Built-in, no download needed
-  :hook ((python-ts-mode) . eglot-ensure))
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Development and programming
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package envrc
   :ensure t
   :hook (after-init . envrc-global-mode))
 
+;; Source control
+(use-package transient-cycles
+             :ensure t)
+(use-package magit
+             :ensure t)
 (use-package diff-hl
   :ensure t
   :init
@@ -186,6 +187,7 @@
   (global-diff-hl-amend-mode)
   (diff-hl-flydiff-mode 1))
 
+;; Debugging
 (use-package dape
   :ensure t
   :config
@@ -214,6 +216,26 @@
     (dape (alist-get 'ansible-module dape-configs)))
   (global-set-key (kbd "C-c d a") #'my/dape-ansible))
 
+;; Terminal
+(use-package eat
+  :ensure t)
+
+;; Language servers
+(use-package eglot
+  :ensure nil ;; Built-in, no download needed
+  :hook ((python-ts-mode) . eglot-ensure))
+
+;; Syntax highlighting
+(use-package treesit-auto
+  :ensure t
+  :config
+  (setq treesit-auto-langs (delete 'elisp treesit-auto-langs))  ; Defend elisp
+(add-hook 'python-ts-mode-hook
+          (lambda ()
+            (setq mode-name "Python-TS")))
+  (global-treesit-auto-mode))  ; make it display as Python-TS
+
+;; C settings
 (defun my-c-tab-settings ()
   "Force literal tabs with a width of 4."
   (setq indent-tabs-mode t)
@@ -226,28 +248,41 @@
 (add-hook 'c-ts-mode-hook #'my-c-tab-settings)
 (add-hook 'c++-ts-mode-hook #'my-c-tab-settings)
 
-(use-package eat
-  :ensure t)
-
-(use-package vertico
-  :ensure t
-  :init
-  (vertico-mode))
-
-(use-package orderless
-  :ensure t
-  :custom
-  (completion-styles '(orderless basic))
-  (completion-category-overrides '((file (styles basic partial-completion)))))
-
-(use-package consult
-  :ensure t
-  :bind (("C-s" . consult-line) ; Search current buffer
-         ("M-g g" . consult-ripgrep))) ; Live grep across the project (Requires ripgrep installed on your system!)
+;; Clojure/lisp
 (use-package paredit
   :ensure t)
 (use-package cider
   :ensure t)
+
+;; Ligatures
+(use-package ligature
+  :vc (:url "https://github.com/mickeynp/ligature.el" :rev "6ac1634612dbd42f7eb81ecaf022bd239aabb954")
+  :config   ;; Enable the "www" ligature in every possible major mode
+  (ligature-set-ligatures 't '("www"))
+  ;; Enable traditional ligature support in eww-mode, if the
+  ;; `variable-pitch' face supports it
+  (ligature-set-ligatures 'eww-mode '("ff" "fi" "ffi"))
+  ;; Enable all Cascadia Code ligatures in programming modes
+  (ligature-set-ligatures 'prog-mode '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
+                                       ":::" "::=" "=:=" "===" "==>" "=!=" "=>>" "=<<" "=/=" "!=="
+                                       "!!." ">=>" ">>=" ">>>" ">>-" ">->" "->>" "-->" "---" "-<<"
+                                       "<~~" "<~>" "<*>" "<||" "<|>" "<$>" "<==" "<=>" "<=<" "<->"
+                                       "<--" "<-<" "<<=" "<<-" "<<<" "<+>" "</>" "###" "#_(" "..<"
+                                       "..." "+++" "/==" "///" "_|_" "www" "&&" "^=" "~~" "~@" "~="
+                                       "~>" "~-" "**" "*>" "*/" "||" "|}" "|]" "|=" "|>" "|-" "{|"
+                                       "[|" "]#" "::" ":=" ":>" ":<" "$>" "==" "=>" "!=" "!!" ">:"
+                                       ">=" ">>" ">-" "-~" "-|" "->" "--" "-<" "<~" "<*" "<|" "<:"
+                                       "<$" "<=" "<>" "<-" "<<" "<+" "</" "#{" "#[" "#:" "#=" "#!"
+                                       "##" "#(" "#?" "#_" "%%" ".=" ".-" ".." ".?" "+>" "++" "?:"
+                                       "?=" "?." "??" ";;" "/*" "/=" "/>" "//" "__" "~~" "(*" "*)"
+                                       "\\\\" "://"))
+  ;; Enables ligature checks globally in all buffers. You can also do it
+  ;; per mode with `ligature-mode'.
+  (global-ligature-mode t))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Auto-generated, don't touch
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -259,9 +294,10 @@
 	 default))
  '(menu-bar-mode nil)
  '(package-selected-packages
-   '(cider consult dape diff-hl eat envrc gruvbox-theme ligature magit
-		   meow-tree-sitter orderless paredit parinfer
-		   transient-cycles treesit-auto vertico))
+   '(cider consult dape diff-hl eat envrc gnu-elpa-keyring-update
+		   gruvbox-theme ligature magit magit-gh magit-ght meow
+		   meow-tree-sitter orderless paredit transient-cycles
+		   treesit-auto vertico))
  '(package-vc-selected-packages
    '((ligature :url "https://github.com/mickeynp/ligature.el")))
  '(scroll-bar-mode nil)
@@ -276,7 +312,8 @@
  '(org-level-1 ((t (:inherit outline-1 :height 1.4 :weight bold))))
  '(org-level-2 ((t (:inherit outline-2 :height 1.25 :weight bold))))
  '(org-level-3 ((t (:inherit outline-3 :height 1.15 :weight semi-bold))))
- '(org-level-4 ((t (:inherit outline-4 :height 1.05 :weight semi-bold)))))
+ '(org-level-4 ((t (:inherit outline-4 :height 1.05 :weight semi-bold))))
+ '(org-document-title ((t (:inherit unspecified :weight bold :height 1.8)))))
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
