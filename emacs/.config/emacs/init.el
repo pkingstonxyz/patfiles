@@ -1,7 +1,7 @@
 (setq initial-scratch-message (concat "\
 ;; Welcome to emacs. Right now it's: " (current-time-string)))
 (setq inhibit-startup-screen t)
-(setq initial-buffer-choice "~/.config/emacs/mylife.org")
+(setq initial-buffer-choice "~/.config/emacs/main.org")
 (global-display-line-numbers-mode)
 
 (setq-default tab-width 4)
@@ -131,6 +131,7 @@
 
 (add-to-list 'default-frame-alist
        '(font . "Fira Code-13"))
+
 (with-eval-after-load 'org
   (custom-set-faces
    '(org-level-1 ((t (:inherit outline-1 :height 1.4 :weight bold))))
