@@ -186,9 +186,11 @@
 
 ;; Source control
 (use-package transient-cycles
-             :ensure t)
+  :ensure t)
 (use-package magit
-             :ensure t)
+  :ensure t)
+(global-set-key (kbd "C-x M-m") 'magit)
+
 (use-package diff-hl
   :ensure t
   :init
