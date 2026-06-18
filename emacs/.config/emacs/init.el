@@ -12,7 +12,9 @@
 (setq inhibit-startup-screen t)
 (setq initial-scratch-message (concat "\
 ;; Welcome to emacs. Right now it's: " (current-time-string)))
-(setq initial-buffer-choice "~/.config/emacs/main.org")
+(add-hook 'emacs-startup-hook
+		  (lambda ()
+			(find-file "~/.config/emacs/main.org")))
 
 ;; Fonts
 (add-to-list 'default-frame-alist
@@ -147,25 +149,33 @@
 ;;;;;;;;;;;
 ;; Org mode
 ;;;;;;;;;;;
-(with-eval-after-load 'org
-  ;; Use the exact Gruvbox purple
-  (setq org-todo-keyword-faces
-		'(("IN-PROGRESS" . (:foreground "#d3869b" :weight bold))))
-  (setq org-hide-leading-stars t)
-  (setq org-superstar-headline-bullets-list '("•"))
-  ;; Hide emphasis markers like /italic/ or *bold* (renders just the styled text)
-  (setq org-hide-emphasis-markers t)
-  ;; Use pretty replacements for things like lambda, arrows, etc.
-  (setq org-pretty-entities t)
-  ;; Require subscripts to be in {}
-  (setq org-use-sub-superscripts '{})
-  (setq org-display-inline-images t)
-  ;; Automatically wrap long lines
-  (add-hook 'org-mode-hook 'visual-line-mode)
-  ;;Look at the top levels in the file when org teleporting
-  (setq org-refile-targets
-		'((nil :maxlevel . 1))))
-(add-hook 'org-mode-hook (lambda () (font-lock-flush))) ; fix metadata color/theme race
+(use-package org
+  :ensure nil
+  :custom
+  ;; :custom safely sets these before Org boots, avoiding the regex crash
+  (org-todo-keywords '((sequence "TODO" "IN-PROGRESS" "|" "DONE")))
+  (org-todo-keyword-faces '(("IN-PROGRESS" . (:foreground "#d3869b" :weight bold))))
+  (org-tags-column 0) ; make the tags align correctly
+  (org-agenda-files '("~/.config/patfiles/emacs-private/.config/emacs/main.org"))
+  (org-hide-leading-stars t) ; hide emphasis markers
+  (org-superstar-headline-bullets-list '("•"))
+  (org-hide-emphasis-markers t)
+  (org-pretty-entities t) ;pretty replacements for stuff like lambda and arrows
+  (org-use-sub-superscripts '{}) ;subscripts gotta be in {}s
+  (org-display-inline-images t)
+  (org-refile-targets '((nil :maxlevel . 1)))
+  :config
+  (add-hook 'org-mode-hook 'visual-line-mode))
+
+;; Make org agenda avail by C-c a
+(global-set-key (kbd "C-c a") 'org-agenda)
+
+;; Babel setup
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (python . t)
+   (shell . t)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Development and programming
@@ -309,11 +319,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(org-document-title ((t (:foreground "#fe8019" :height 1.8 :weight bold))))
  '(org-level-1 ((t (:inherit outline-1 :height 1.4 :weight bold))))
  '(org-level-2 ((t (:inherit outline-2 :height 1.25 :weight bold))))
  '(org-level-3 ((t (:inherit outline-3 :height 1.15 :weight semi-bold))))
- '(org-level-4 ((t (:inherit outline-4 :height 1.05 :weight semi-bold))))
- '(org-document-title ((t (:inherit unspecified :weight bold :height 1.8)))))
+ '(org-level-4 ((t (:inherit outline-4 :height 1.05 :weight semi-bold)))))
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
