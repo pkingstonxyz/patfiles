@@ -247,6 +247,11 @@
             (setq mode-name "Python-TS")))
   (global-treesit-auto-mode))  ; make it display as Python-TS
 
+;; Use yaml-mode not yaml-ts-mode (it sucks)
+(use-package yaml-mode
+  :ensure t
+  :mode ("\\.yaml\\'" "\\.yml\\'"))
+
 ;; C settings
 (defun my-c-tab-settings ()
   "Force literal tabs with a width of 4."
@@ -309,7 +314,7 @@
    '(cider consult dape diff-hl eat envrc gnu-elpa-keyring-update
 		   gruvbox-theme ligature magit magit-gh magit-ght meow
 		   meow-tree-sitter orderless paredit transient-cycles
-		   treesit-auto vertico))
+		   treesit-auto vertico yaml-mode))
  '(package-vc-selected-packages
    '((ligature :url "https://github.com/mickeynp/ligature.el")))
  '(scroll-bar-mode nil)
