@@ -177,6 +177,9 @@
    (python . t)
    (shell . t)))
 
+;; Open main.org file
+(global-set-key (kbd "C-c m") (lambda () (interactive) (switch-to-buffer "main.org")))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Development and programming
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
