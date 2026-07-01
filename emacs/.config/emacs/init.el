@@ -271,6 +271,8 @@
 ;; Clojure/lisp
 (use-package paredit
   :ensure t)
+(use-package parinfer-rust-mode
+  :ensure t)
 (use-package cider
   :ensure t)
 
