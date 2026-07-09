@@ -176,6 +176,42 @@
  '((emacs-lisp . t)
    (python . t)
    (shell . t)))
+;;;;;;;;;;;
+;; Org mode
+;;;;;;;;;;;
+(use-package org
+  :ensure nil
+  :custom
+  ;; :custom safely sets these before Org boots, avoiding the regex crash
+  (org-todo-keywords '((sequence "TODO" "IN-PROGRESS" "|" "DONE")))
+  (org-todo-keyword-faces '(("IN-PROGRESS" . (:foreground "#d3869b" :weight bold))))
+  (org-tags-column 0) ; make the tags align correctly
+  (org-agenda-files '("~/.config/patfiles/emacs-private/.config/emacs/main.org"))
+  (org-hide-leading-stars t) ; hide emphasis markers
+  (org-superstar-headline-bullets-list '("•"))
+  (org-hide-emphasis-markers t)
+  (org-pretty-entities t) ;pretty replacements for stuff like lambda and arrows
+  (org-use-sub-superscripts '{}) ;subscripts gotta be in {}s
+  (org-display-inline-images t)
+  (org-refile-targets '((nil :maxlevel . 1)))
+  (org-src-fontify-natively t) ;syntax highlighting in babel stuffs
+  (org-src-tab-acts-natively t) ;make the python tabs not suck
+  (org-edit-src-content-indentation 0) 
+  :config
+  (add-hook 'org-mode-hook 'visual-line-mode))
+
+;; Make org agenda avail by C-c a
+(global-set-key (kbd "C-c a") 'org-agenda)
+
+;; Babel setup
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (python . t)
+   (shell . t)))
+
+;; Open main.org file
+(global-set-key (kbd "C-c m") (lambda () (interactive) (switch-to-buffer "main.org")))
 
 ;; Open main.org file
 (global-set-key (kbd "C-c m") (lambda () (interactive) (switch-to-buffer "main.org")))
