@@ -201,8 +201,13 @@
   :init
   (global-diff-hl-mode)
   :config
-  (global-diff-hl-amend-mode)
   (diff-hl-flydiff-mode 1))
+
+(use-package consult-gh
+  :ensure t
+  :after consult)
+(global-set-key (kbd "C-c c p") 'consult-gh-pr-list)
+(global-set-key (kbd "C-c c i") 'consult-gh-issue-list)
 
 ;; Debugging
 (use-package dape
@@ -235,10 +240,23 @@
 
 ;; Terminal
 (use-package eat
-  :ensure t
-  :after project
+  :ensure t)
+
+;; Project settings
+(use-package project
+  :ensure nil  ; Built into Emacs, no need to download from MELPA
   :bind (:map project-prefix-map
-			  ("t" . eat-project)))
+              ("t" . eat-project)
+              ("m" . magit-project-status))
+  :config
+  ;; 1. Remove Eshell ('project-eshell) from the C-x p p dispatch menu
+  (setq project-switch-commands
+        (assq-delete-all 'project-eshell project-switch-commands))
+
+  ;; 2. Add Eat and Magit to the dispatch menu
+  ;; Format is: (COMMAND "Label" "Key")
+  (add-to-list 'project-switch-commands '(eat-project "Eat" "t"))
+  (add-to-list 'project-switch-commands '(magit-project-status "Magit" "m")))
 
 ;; Language servers
 (use-package eglot
