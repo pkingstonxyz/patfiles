@@ -179,7 +179,6 @@
  '((emacs-lisp . t)
    (python . t)
    (shell . t)))
-
 ;; Open main.org file
 (global-set-key (kbd "C-c m") (lambda () (interactive) (switch-to-buffer "main.org")))
 
@@ -259,10 +258,7 @@
 ;; Use yaml-mode not yaml-ts-mode (it sucks)
 (use-package yaml-mode
   :ensure t
-  :mode ("\\.yaml\\'" "\\.yml\\'")
-  :config
-  (setq major-mode-remap-alist
-        (delete '(yaml-mode . yaml-ts-mode) major-mode-remap-alist)))
+  :mode ("\\.yaml\\'" "\\.yml\\'"))
 
 ;; C settings
 (defun my-c-tab-settings ()
@@ -327,8 +323,8 @@
  '(package-selected-packages
    '(cider consult dape diff-hl eat envrc gnu-elpa-keyring-update
 		   gruvbox-theme ligature magit magit-gh magit-ght meow
-		   meow-tree-sitter orderless paredit parinfer-rust-mode
-		   transient-cycles treesit-auto vertico yaml-mode))
+		   meow-tree-sitter orderless paredit transient-cycles
+		   treesit-auto vertico yaml-mode))
  '(package-vc-selected-packages
    '((ligature :url "https://github.com/mickeynp/ligature.el")))
  '(scroll-bar-mode nil)
